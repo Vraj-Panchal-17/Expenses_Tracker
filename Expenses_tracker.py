@@ -9,17 +9,20 @@ def menu():
     print("3.Delete Expenses")
     print("4.Exit")
 
-
-with open("total_expenses.txt", "r") as f:
-    data = f.read().strip()
-    if data:
-        for line in data.split("\n"):
-            amount, category, description = line.split("|")
-            expenses.append({
-                "amount": float(amount),
-                "category": category,
-                "description": description
-            })
+try:
+    with open("total_expenses.txt", "r") as f:
+        data = f.read().strip()
+        if data:
+            for line in data.split("\n"):
+                amount, category, description = line.split("|")
+                expenses.append({
+                    "amount": float(amount),
+                    "category": category,
+                    "description": description
+                })
+except FileNotFoundError:
+    with open("total_expenses.txt", "w") as f:
+        pass
 
 def add_expenses():
     amount = float(input("Enter amount: "))
@@ -59,26 +62,26 @@ def delete_expenses():
 
     idx = choice - 1
 
-    if idx <= 0 or idx >=len(expenses):
+    if idx < 0 or idx >=len(expenses):
         print("Invalid Choice.")
 
     expenses.pop(idx)
     print("Expenses delete successfully.")
 
-    with open("total_expenses.txt", "r") as f:
+    with open("total_expenses.txt", "w") as f:
         for exp in expenses:
-            f.write(f"{exp[amount]}|{exp[category]}|{exp[description]}\n")  
+            f.write(f"{exp['amount']}|{exp['category']}|{exp['description']}\n") 
 
 while True:
     menu()
     choice = int(input("Enter your choice: "))
     if choice == 1:
-        pass
-    if choice == 2:
-        pass
-    if choice == 3:
-        pass
-    if choice == 4:
+        add_expenses()
+    elif choice == 2:
+        view_expenses()
+    elif choice == 3:
+        delete_expenses()
+    elif choice == 4:
         print("Exiting program...")
         break
     else:
