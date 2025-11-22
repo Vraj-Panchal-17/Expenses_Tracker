@@ -40,11 +40,34 @@ def add_expenses():
 def view_expenses():
     if len(expenses) == 0:
         print("Daily Expenses list is empty.")
+        return
     
     idx = 1
     for exp in expenses:
         print(f"{idx}.₹{exp['amount']} - {exp['category']} - {exp['description']}")
         idx += 1
+
+
+def delete_expenses():
+    if len(expenses) == 0:
+        print("Daily Expenses list is empty.")
+        return
+
+    view_expenses()
+
+    choice = int(input("Enter the expenses number to remove: "))
+
+    idx = choice - 1
+
+    if idx <= 0 or idx >=len(expenses):
+        print("Invalid Choice.")
+
+    expenses.pop(idx)
+    print("Expenses delete successfully.")
+
+    with open("total_expenses.txt", "r") as f:
+        for exp in expenses:
+            f.write(f"{exp[amount]}|{exp[category]}|{exp[description]}\n")  
 
 while True:
     menu()
