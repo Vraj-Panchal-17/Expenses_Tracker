@@ -9,20 +9,6 @@ def menu():
     print("3.Delete Expenses")
     print("4.Exit")
 
-while True:
-    menu()
-    choice = int(input("Enter your choice: "))
-    if choice == 1:
-        print("1")
-    if choice == 2:
-        print("2")
-    if choice == 3:
-        print("3")
-    if choice == 4:
-        print("Exiting program...")
-        break
-    else:
-        print("Invalid input!, Try again.")
 
 with open("total_expenses.txt", "r") as f:
     data = f.read().strip()
@@ -51,3 +37,26 @@ def add_expenses():
     
     print("Expenses added successfully.")
 
+def view_expenses():
+    if len(expenses) == 0:
+        print("Daily Expenses list is empty.")
+    
+    idx = 1
+    for exp in expenses:
+        print(f"{idx}.₹{exp['amount']} - {exp['category']} - {exp['description']}")
+        idx += 1
+
+while True:
+    menu()
+    choice = int(input("Enter your choice: "))
+    if choice == 1:
+        pass
+    if choice == 2:
+        pass
+    if choice == 3:
+        pass
+    if choice == 4:
+        print("Exiting program...")
+        break
+    else:
+        print("Invalid input!, Try again.")
